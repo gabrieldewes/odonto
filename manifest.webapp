@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "name": "Tabajara Odonto",
+  "launch_path": "/index.php",
+  "description": "Tabajara Odonto web app.",
+  "icons": {
+    "128": "/static/images/touch/icon-128x128.png"
+  },
+  "developer": {
+    "name": "Gabriel Dewes",
+    "url": "gabrieldewes.github.io"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "pt_BR",
+  "permissions": {},
+  "locales": {
+    "pt_BR": {
+      "name": "Tabajara Odonto",
+      "description": "Tabajara Odonto web app."
+    }
+  }
+}
