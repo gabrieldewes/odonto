@@ -44,6 +44,12 @@ class AuthResource extends REST_Controller {
         new Status("account_not_activated", "This account is not activated", null),
         REST_Controller::HTTP_OK);
 
+    if ( ($token = $this->db->select("token")->from("tokens")->where(["user_id"=>$user->getId()])->get()->row()) != null) {
+      $this->response(
+        new Status("already_connected", "Account already connected", $token),
+        REST_Controller::HTTP_OK);
+    }
+
     $persistentToken = [
       "token" => bin2hex(random_bytes(16)),
       "user_id" => $user->getId(),
@@ -54,19 +60,14 @@ class AuthResource extends REST_Controller {
       "created_at" => date("Y:m:d H:m:s")
     ];
 
-    if ( ($token = $this->db->select("token")->from("tokens")->where(["user_id"=>$user->getId()])->get()->row()) != null) {
-      $this->response(
-        new Status("already_connected", "Account already connected", $token),
-        REST_Controller::HTTP_OK);
-    }
-    else if ($this->db->insert("tokens", $persistentToken)) {
+    if ($this->db->insert("tokens", $persistentToken)) {
       $this->response(
         new Status("connected", "Account logged successfully", ["token"=>$persistentToken['token']]),
         REST_Controller::HTTP_OK);
     }
     else {
       $this->response(
-        new Status("connect_token_error", "An error ocurred while creating access token", null),
+        new Status("error_create_token", "An error ocurred while creating access token", null),
         REST_Controller::HTTP_OK);
     }
   }
