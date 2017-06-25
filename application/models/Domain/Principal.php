@@ -8,14 +8,18 @@ class Principal implements \JsonSerializable {
   private $lastName;
   private $email;
   private $username;
+  private $avatarUrl;
+  private $bio;
   private $roles;
 
-  public function __construct($id=null, $firstName=null, $lastName=null, $email=null, $username=null, $roles=null) {
+  public function __construct($id=null, $firstName=null, $lastName=null, $email=null, $username=null, $avatarUrl=null, $bio=null, $roles=null) {
     $this->id = $id;
     $this->firstName = $firstName;
     $this->lastName = $lastName;
     $this->email = $email;
     $this->username = $username;
+    $this->avatarUrl = $avatarUrl;
+    $this->bio = $bio;
     $this->roles = $roles;
   }
 
@@ -66,6 +70,24 @@ class Principal implements \JsonSerializable {
 
   public function setUsername($username) {
     $this->username = $username;
+    return $this;
+  }
+
+  public function getAvatarUrl() {
+    return $this->avatarUrl;
+  }
+
+  public function setAvatarUrl($avatarUrl) {
+    $this->avatarUrl = $avatarUrl;
+    return $this;
+  }
+
+  public function getBio() {
+    return $this->bio;
+  }
+
+  public function setBio($bio) {
+    $this->bio = $bio;
     return $this;
   }
 

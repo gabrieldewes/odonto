@@ -13,8 +13,6 @@ class UserService extends CI_Model {
     parent::__construct();
     $this->em = $this->doctrine->em;
     $this->repo = $this->em->getRepository("Domain\User");
-    $this->load->model("Repository/AuthorityRepository");
-    $this->load->model("Service/MailService");
   }
 
   public function findAll($page, $limit) {
@@ -26,23 +24,27 @@ class UserService extends CI_Model {
   }
 
   public function createUser($firstName, $lastName, $email, $username, $password) {
+    $this->load->model("Repository/AuthorityRepository");
     $user = new User();
     $encriptedPassword = password_hash($password, PASSWORD_BCRYPT);
     $authority = $this->AuthorityRepository->findOneByName("ROLE_USER");
     $currUserUsername = "system";
+    $g=["women","men"];
     $user->setFirstName($this->titleCase($firstName))
          ->setLastName($this->titleCase($lastName))
          ->setEmail(strtolower($email))
          ->setUsername(strtolower($username))
          ->setPassword($encriptedPassword)
+         ->setActivationKey(uniqid())
+         ->setActive(false)
+         ->addAuthority($authority)
+         ->setAvatarUrl("https://randomuser.me/api/portraits/". $g[rand(0,1)] ."/". rand(0,99) .".jpg")
+         ->setBio("")
          ->setCreatedBy($currUserUsername)
          ->setCreatedAt()
          ->setLastModifiedBy($currUserUsername)
          ->setLastModifiedAt()
-         ->setDeleted(false)
-         ->setActive(false)
-         ->setActivationKey(uniqid())
-         ->addAuthority($authority);
+         ->setDeleted(false);
     $this->em->persist($user);
     $this->em->flush();
     return $user;

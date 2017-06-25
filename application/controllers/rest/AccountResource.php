@@ -25,6 +25,8 @@ class AccountResource extends REST_Controller {
         ->setLastName($user->getLastName())
         ->setEmail($user->getEmail())
         ->setUsername($user->getUsername())
+        ->setAvatarUrl($user->getAvatarUrl())
+        ->setBio($user->getBio())
         ->setRoles($roles);
     $this->response($principal, REST_Controller::HTTP_OK);
   }
@@ -45,8 +47,9 @@ class AccountResource extends REST_Controller {
     $password  = $data['password'];
 
     if (($user = $this->UserService->createUser($firstName, $lastName, $email, $username, $password)) !== null) {
-      $this->load->model("Service/MailService");
-      $this->MailService->sendActivationEmail($user);
+      //$this->load->model("Service/MailService");
+      //$this->MailService->sendActivationEmail($user);
+      $user = $this->UserService->activeRegistration($user->getActivationKey());
       $userStatus[] =
         new Status("account_info", "Account information", $user->toArray());
       $this->response(

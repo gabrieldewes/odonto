@@ -55,6 +55,20 @@ class User extends AbstractEntity
     private $password;
 
     /**
+     * @var string
+     *
+     * @Column(name="avatar_url", type="string", length=255, nullable=true)
+     */
+    private $avatarUrl;
+
+    /**
+     * @var string
+     *
+     * @Column(name="bio", type="text", length=65535, nullable=true)
+     */
+    private $bio;
+
+    /**
      * @var boolean
      *
      * @Column(name="active", type="boolean", nullable=true)
@@ -269,6 +283,54 @@ class User extends AbstractEntity
     }
 
     /**
+     * Set avatarUrl
+     *
+     * @param string $avatarUrl
+     *
+     * @return User
+     */
+    public function setAvatarUrl($avatarUrl)
+    {
+        $this->avatarUrl = $avatarUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarUrl
+     *
+     * @return string
+     */
+    public function getAvatarUrl()
+    {
+        return $this->avatarUrl;
+    }
+
+    /**
+     * Set bio
+     *
+     * @param string $bio
+     *
+     * @return Card
+     */
+    public function setBio($bio)
+    {
+        $this->whatafield = $bio;
+
+        return $this;
+    }
+
+    /**
+     * Get bio
+     *
+     * @return string
+     */
+    public function getBio()
+    {
+        return $this->bio;
+    }
+
+    /**
      * Set active
      *
      * @param boolean $active
@@ -392,6 +454,8 @@ class User extends AbstractEntity
         'email' => $this->email,
         'username' => $this->username,
         'password' => null,
+        'avatarUrl' => $this->avatarUrl,
+        'bio' => $this->bio,
         'deleted' => $this->getDeleted(),
         'createdBy' => $this->getCreatedBy(),
         'createdAt' => $this->getCreatedAt(),
