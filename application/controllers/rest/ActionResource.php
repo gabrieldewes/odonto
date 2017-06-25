@@ -20,13 +20,29 @@ class ActionResource extends REST_Controller {
   }
 
   function actions_get($cardId, $actionId) {
+    /*
     $this->load->model("Service/ActionService");
     $action = $this->ActionService->findById($actionId);
     if (!$action)
       $this->response(
         new Status("action_not_found", "Action not found with id {$actionId}.", null), 400);
-
-    $this->response($action->toArray(), REST_Controller::HTTP_OK);
+    */
+    $userId = $this->_apiuser->user_id;
+    $dql = "SELECT a FROM Domain\Action a JOIN a.card c JOIN c.user u WHERE a.id = :actionId AND c.id = :cardId AND u.id = :userId";
+    $query = $this->doctrine->em
+            ->createQuery($dql)
+            ->setParameter("actionId", $actionId)
+            ->setParameter("cardId", $cardId)
+            ->setParameter("userId", $userId);
+    try {
+      $action = $query->getsingleResult();
+      $this->response($action->toArray(), REST_Controller::HTTP_OK);
+    }
+    catch (\Doctrine\ORM\NoResultException $e) {
+      $this->response(
+        new Status("action_not_found", "Action not found with id {$actionId} for card with id {$cardId}", null),
+        REST_Controller::HTTP_OK);
+    }    
   }
 
   function attachments_get($actionId) {

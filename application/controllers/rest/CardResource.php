@@ -58,7 +58,7 @@ class CardResource extends REST_Controller {
     $card = $this->CardService->findById($cardId);
     if (!$card)
       $this->response(
-          new Status("card_not_found", "Card not found with id \"{$cardId}\"."),
+          new Status("card_not_found", "Card not found with id \"{$cardId}\""),
           REST_Controller::HTTP_OK);
 
     $archive = $this->put()[0];
@@ -67,12 +67,12 @@ class CardResource extends REST_Controller {
       $card = $this->CardService->archiveCard($card);
       if ($card) {
         $this->response(
-          new Status("archive_card", "Card archived.", $card->toArray()),
+          new Status("archive_card", "Card archived", $card->toArray()),
           REST_Controller::HTTP_OK);
       }
       else {
         $this->response(
-          new Status("error_archive_card", "An error ocurred while archiving the card.", null),
+          new Status("error_archive_card", "An error ocurred while archiving the card", null),
           REST_Controller::HTTP_OK);
       }
     }
@@ -80,7 +80,7 @@ class CardResource extends REST_Controller {
       $card = $this->CardService->recoverCard($card);
       if ($card) {
         $this->response(
-          new Status("recover_card", "Card recovered.", $card->toArray()),
+          new Status("recover_card", "Card recovered", $card->toArray()),
           REST_Controller::HTTP_OK);
       }
       else {
