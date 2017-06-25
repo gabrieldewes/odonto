@@ -11,20 +11,20 @@ class AuthResource extends REST_Controller {
 
   function greetings_get() {
     $proxy = $_SERVER['REMOTE_ADDR'];
-    $this->response(new Status("greetings", "Hello {$proxy}", null), 200);
+    $this->response(new Status("greetings", "Hello {$proxy}", null), REST_Controller::HTTP_OK);
   }
 
   function default_get() {
     $proxy = $_SERVER['REMOTE_ADDR'];
     $host = gethostbyaddr($_SERVER['REMOTE_ADDR']);
-    $this->response(new Status("greetings", "Hello {$host}", null), 200);
+    $this->response(new Status("greetings", "Hello {$host}", null), REST_Controller::HTTP_OK);
   }
 
   function get_token_post() {
     $userCredentials = $this->post();
 
     if ( ($status = $this->validateUserAuthInputPost($userCredentials)) != null) {
-      $this->response($status, 200);
+      $this->response($status, REST_Controller::HTTP_OK);
     }
 
     $this->load->model("Service/UserService");
@@ -37,12 +37,12 @@ class AuthResource extends REST_Controller {
     if ($user == null || ($user != null && !password_verify($password, $user->getPassword())))
       $this->response(
         new Status("invalid_credentials", "Invalid credentials", null),
-        200);
+        REST_Controller::HTTP_OK);
 
     if (!$user->getActive())
       $this->response(
         new Status("account_not_activated", "This account is not activated", null),
-        200);
+        REST_Controller::HTTP_OK);
 
     $persistentToken = [
       "token" => bin2hex(random_bytes(16)),
@@ -56,15 +56,18 @@ class AuthResource extends REST_Controller {
 
     if ( ($token = $this->db->select("token")->from("tokens")->where(["user_id"=>$user->getId()])->get()->row()) != null) {
       $this->response(
-        new Status("already_connected", "Account already connected", $token), 200);
+        new Status("already_connected", "Account already connected", $token),
+        REST_Controller::HTTP_OK);
     }
     else if ($this->db->insert("tokens", $persistentToken)) {
       $this->response(
-        new Status("connected", "Account logged successfully", ["token"=>$persistentToken['token']]), 200);
+        new Status("connected", "Account logged successfully", ["token"=>$persistentToken['token']]),
+        REST_Controller::HTTP_OK);
     }
     else {
       $this->response(
-        new Status("connect_token_error", "An error ocurred while creating access token", null), 200);
+        new Status("connect_token_error", "An error ocurred while creating access token", null),
+        REST_Controller::HTTP_OK);
     }
   }
 
@@ -73,11 +76,13 @@ class AuthResource extends REST_Controller {
     if ($this->db->delete("tokens", ["user_id" => $userId])) {
       if ($this->db->affected_rows() != 0) {
         $this->response(
-          new Status("logged_out", "Account logged out successfully", null), 200);
+          new Status("logged_out", "Account logged out successfully", null),
+          REST_Controller::HTTP_OK);
       }
       else {
         $this->response(
-          new Status("already_logged_out", "Account already logged out", null), 200);
+          new Status("already_logged_out", "Account already logged out", null),
+          REST_Controller::HTTP_OK);
       }
     }
   }

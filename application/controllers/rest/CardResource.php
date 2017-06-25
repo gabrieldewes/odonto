@@ -29,11 +29,13 @@ class CardResource extends REST_Controller {
     $userId = $this->_apiuser->user_id;
 
     if (($card = $this->CardService->createCardStateless($whatafield, $userId)) != null) {
-      $this->response(new Status("create_card", "Card created successfully.", $card->toArray()), 201);
+      $this->response(new Status("create_card", "Card created successfully.", $card->toArray()),
+      REST_Controller::HTTP_CREATED);
     }
     else {
       $this->response(
-        new Status("error_create_card", "An error ocurred while creating card.", null), 200);
+        new Status("error_create_card", "An error ocurred while creating card.", null),
+        REST_Controller::HTTP_OK);
     }
     //var_dump($_FILES);
     //file_put_contents("dump.txt", ob_get_flush());
@@ -56,7 +58,8 @@ class CardResource extends REST_Controller {
     $card = $this->CardService->findById($cardId);
     if (!$card)
       $this->response(
-          new Status("card_not_found", "Card not found with id \"{$cardId}\"."), 400);
+          new Status("card_not_found", "Card not found with id \"{$cardId}\"."),
+          REST_Controller::HTTP_OK);
 
     $archive = $this->put()[0];
 
@@ -64,22 +67,26 @@ class CardResource extends REST_Controller {
       $card = $this->CardService->archiveCard($card);
       if ($card) {
         $this->response(
-          new Status("archive_card", "Card archived.", $card->toArray()), 200);
+          new Status("archive_card", "Card archived.", $card->toArray()),
+          REST_Controller::HTTP_OK);
       }
       else {
         $this->response(
-          new Status("error_archive_card", "An error ocurred while archiving the card.", null), 400);
+          new Status("error_archive_card", "An error ocurred while archiving the card.", null),
+          REST_Controller::HTTP_OK);
       }
     }
     else if ($archive === false) {
       $card = $this->CardService->recoverCard($card);
       if ($card) {
         $this->response(
-          new Status("recover_card", "Card recovered.", $card->toArray()), 200);
+          new Status("recover_card", "Card recovered.", $card->toArray()),
+          REST_Controller::HTTP_OK);
       }
       else {
         $this->response(
-          new Status("error_recover_card", "An error ocurred while retrieving the card.", null), 400);
+          new Status("error_recover_card", "An error ocurred while retrieving the card.", null),
+          REST_Controller::HTTP_OK);
       }
     }
 

@@ -26,7 +26,7 @@ class AccountResource extends REST_Controller {
         ->setEmail($user->getEmail())
         ->setUsername($user->getUsername())
         ->setRoles($roles);
-    $this->response($principal, 200);
+    $this->response($principal, REST_Controller::HTTP_OK);
   }
 
   function register_post() {
@@ -35,7 +35,8 @@ class AccountResource extends REST_Controller {
     $statuses = $this->validateUserRegisterInputPost($data);
     if ( !empty($statuses)) {
       $this->response(
-        new Status("error_empty_fields", "The input has empty fields", $statuses), 200);
+        new Status("error_empty_fields", "The input has empty fields", $statuses),
+        REST_Controller::HTTP_OK);
     }
     $firstName = $data['firstName'];
     $lastName  = $data['lastName'];
@@ -49,11 +50,13 @@ class AccountResource extends REST_Controller {
       $userStatus[] =
         new Status("account_info", "Account information", $user->toArray());
       $this->response(
-        new Status("success_create_account", "Account created successfully", $userStatus), 201);
+        new Status("success_create_account", "Account created successfully", $userStatus),
+        REST_Controller::HTTP_CREATED);
     }
     else {
       $this->response(
-        new Status("error_create_account", "An error ocurred while creating account", null), 200);
+        new Status("error_create_account", "An error ocurred while creating account", null),
+        REST_Controller::HTTP_OK);
     }
 
   }
