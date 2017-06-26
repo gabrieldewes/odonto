@@ -100,6 +100,8 @@ $route['mails'] = "MailController/seeTemplates";
 $route["admin/cards"] = "CardController/findAll";
 $route["admin/attachments"] = "AttachmentController/findAll";
 $route["admin/users/delete/(:num)"] = "UserController/delete/$1";
+$route["logs"] = "LogsController/logs";
+$route["tokens"] = "LogsController/tokens";
 
 $route["api"] = "rest/AuthResource/default";
 

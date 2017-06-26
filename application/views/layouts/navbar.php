@@ -12,6 +12,8 @@
               <li><a href="<?=base_url()?>cards/new">submeter</a></li>
               <li><a href="<?=base_url()?>cards/archive">arquivo</a></li>
             <?php elseif ($this->AuthService->hasRole("ROLE_ADMIN")): ?>
+              <li><a href="<?=base_url()?>logs">logs</a></li>
+              <li><a href="<?=base_url()?>tokens">tokens</a></li>
               <li><a href="<?=base_url()?>users">users</a></li>
               <li><a href="<?=base_url()?>actions">actions</a></li>
               <li><a href="<?=base_url()?>admin/cards">cards</a></li>

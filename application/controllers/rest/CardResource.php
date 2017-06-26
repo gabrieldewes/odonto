@@ -28,6 +28,11 @@ class CardResource extends REST_Controller {
     $whatafield = $data['whatafield'];
     $userId = $this->_apiuser->user_id;
 
+    if (!$whatafield || trim($whatafield) === '') {
+      $this->response(new Status("error_empty_field_whatafield", "Whatafield can not be empty", null),
+      REST_Controller::HTTP_OK);
+    }
+
     if (($card = $this->CardService->createCardStateless($whatafield, $userId)) != null) {
       $this->response(new Status("create_card", "Card created successfully.", $card->toArray()),
       REST_Controller::HTTP_CREATED);
