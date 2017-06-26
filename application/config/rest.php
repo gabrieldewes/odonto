@@ -182,9 +182,9 @@ $config['auth_library_function'] = '';
 // $config['auth_override_class_method']['deals']['insert'] = 'digest';
 // $config['auth_override_class_method']['accounts']['user'] = 'basic';
 // $config['auth_override_class_method']['dashboard']['*'] = 'basic';
-$config['auth_override_class_method']['AuthResource']['default'] = 'none';
-$config['auth_override_class_method']['AuthResource']['get_token'] = 'basic';
-$config['auth_override_class_method']['AccountResource']['register'] = 'none';
+$config['auth_override_class_method']['DefaultResource']['*'] = 'none';
+$config['auth_override_class_method']['AuthResource']['token'] = 'basic';
+$config['auth_override_class_method']['AccountResource']['register'] = 'basic';
 
 // ---Uncomment list line for the wildard unit test
 // $config['auth_override_class_method']['wildcard_test_cases']['*'] = 'basic';
@@ -405,7 +405,7 @@ $config['rest_key_name'] = 'X-API-TOKEN';
 |   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_logging'] = FALSE;
+$config['rest_enable_logging'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

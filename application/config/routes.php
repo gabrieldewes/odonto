@@ -103,16 +103,14 @@ $route["admin/users/delete/(:num)"] = "UserController/delete/$1";
 $route["logs"] = "LogsController/logs";
 $route["tokens"] = "LogsController/tokens";
 
-$route["api"] = "rest/AuthResource/default";
+$route["api"] = "rest/DefaultResource";
 
-$route["api/greetings"] = "rest/AuthResource/greetings";
+$route["api/auth/token"] = "rest/AuthResource/token";
+$route["api/auth/revoke"] = "rest/AuthResource/revoke";
 
-$route["api/auth/token"] = "rest/AuthResource/get_token";
-$route["api/auth/logout"] = "rest/AuthResource/logout";
-
-$route["api/account/me"] = "rest/AccountResource/me";
-$route["api/account/register"] = "rest/AccountResource/register";
-$route["api/account/(:any)"] = "rest/AccountResource/profile/$1";
+$route["api/accounts/me"] = "rest/AccountResource/me";
+$route["api/accounts/register"] = "rest/AccountResource/register";
+$route["api/accounts/(:any)"] = "rest/AccountResource/profile/$1";
 
 $route["api/cards/archive"] = "rest/CardResource/archive";
 $route["api/cards"] = "rest/CardResource";

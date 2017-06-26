@@ -7,20 +7,10 @@ class AuthResource extends REST_Controller {
 
   function __construct() {
     parent::__construct();
+    $this->load->model("Repository/TokenRepository");
   }
 
-  function greetings_get() {
-    $proxy = $_SERVER['REMOTE_ADDR'];
-    $this->response(new Status("greetings", "Hello {$proxy}", null), REST_Controller::HTTP_OK);
-  }
-
-  function default_get() {
-    $proxy = $_SERVER['REMOTE_ADDR'];
-    $host = gethostbyaddr($_SERVER['REMOTE_ADDR']);
-    $this->response(new Status("greetings", "Hello {$host}", null), REST_Controller::HTTP_OK);
-  }
-
-  function get_token_post() {
+  function token_post() {
     $userCredentials = $this->post();
 
     if ( ($status = $this->validateUserAuthInputPost($userCredentials)) != null) {
@@ -44,47 +34,36 @@ class AuthResource extends REST_Controller {
         new Status("account_not_activated", "This account is not activated", null),
         REST_Controller::HTTP_OK);
 
-    if ( ($token = $this->db->select("token")->from("tokens")->where(["user_id"=>$user->getId()])->get()->row()) != null) {
+    if ( ($token = $this->TokenRepository->getTokenIfExists($user->getId())) != null) {
       $this->response(
-        new Status("already_connected", "Account already connected", $token),
+        new Status("already_connected", "Account already authenticated", $token),
         REST_Controller::HTTP_OK);
     }
 
-    $persistentToken = [
-      "token" => bin2hex(random_bytes(16)),
-      "user_id" => $user->getId(),
-      "level" => "0",
-      "ignore_limits" => TRUE,
-      "is_private_key" => FALSE,
-      "ip_addresses" => $this->input->ip_address(),
-      "created_at" => date("Y:m:d H:m:s")
-    ];
-
-    if ($this->db->insert("tokens", $persistentToken)) {
+    if (($token = $this->TokenRepository->createToken($user->getId(), 0, 1)) != null) {
       $this->response(
-        new Status("connected", "Account logged successfully", ["token"=>$persistentToken['token']]),
-        REST_Controller::HTTP_OK);
+        new Status("connected", "Account authenticated successfully", ["token" => $token]),
+        REST_Controller::HTTP_CREATED);
     }
     else {
       $this->response(
         new Status("error_create_token", "An error ocurred while creating access token", null),
-        REST_Controller::HTTP_OK);
+        REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
     }
+
   }
 
-  function logout_post() {
+  function revoke_delete() {
     $userId = $this->_apiuser->user_id;
-    if ($this->db->delete("tokens", ["user_id" => $userId])) {
-      if ($this->db->affected_rows() != 0) {
-        $this->response(
-          new Status("logged_out", "Account logged out successfully", null),
-          REST_Controller::HTTP_OK);
-      }
-      else {
-        $this->response(
-          new Status("already_logged_out", "Account already logged out", null),
-          REST_Controller::HTTP_OK);
-      }
+    if ($this->TokenRepository->destroyToken($userId)) {
+      $this->response(
+        new Status("revoke_token", "Account revoked successfully", null),
+        REST_Controller::HTTP_OK);
+    }
+    else {
+      $this->response(
+        new Status("error_revoke_token", "Account has no tokens", null),
+        REST_Controller::HTTP_OK);
     }
   }
 
