@@ -31,7 +31,9 @@ class AuthService extends CI_Model {
               ->setFirstName($user->getFirstName())
               ->setLastName($user->getLastName())
               ->setUsername($user->getUsername())
-              ->setEmail($user->getEmail());
+              ->setEmail($user->getEmail())
+              ->setAvatarUrl($user->getAvatarUrl())
+              ->setBio($user->getBio());
     $this->session->set_userdata("principal", $principal);
     return $principal;
   }

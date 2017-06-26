@@ -23,8 +23,8 @@
             <?php else: ?>
               <!--<li><a href="<?=base_url()?>logout">sair</a></li>-->
               <li>
-                <div title="My Profile" alt="Profile photo" class="profile-photo" onclick="javascript:location='<?=base_url() ."me/"?>'"
-                  style="background-image: url(https://randomuser.me/api/portraits/women/<?=$this->AuthService->getCurrentUserId()?>.jpg)">
+                <div title="My Profile" alt="Profile photo" class="profile-photo" onclick="javascript:location='<?=base_url() ."me"?>'"
+                  style="background-image: url(<?=$this->AuthService->getPrincipal()->getAvatarUrl()?>)">
                 </div>
               </li>
             <?php endif; ?>
