@@ -31,7 +31,7 @@
       <aside>
         <div class="row justify-content-center">
 
-          <div alt="Profile photo" class="profile-photo" style="background-image: url(https://randomuser.me/api/portraits/women/<?=$user->getId()?>.jpg)"></div>
+          <div alt="Profile photo" class="profile-photo" style="background-image: url(<?=$user->getAvatarUrl()?>)"></div>
 
           <h3 class="profile-name">
             <?=trim("{$user->getFirstName()} {$user->getLastName()}")?>

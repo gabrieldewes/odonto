@@ -111,8 +111,8 @@ $route["api/auth/token"] = "rest/AuthResource/get_token";
 $route["api/auth/logout"] = "rest/AuthResource/logout";
 
 $route["api/account/me"] = "rest/AccountResource/me";
-$route["api/account/(:any)"] = "rest/AccountResource/profile/$1";
 $route["api/account/register"] = "rest/AccountResource/register";
+$route["api/account/(:any)"] = "rest/AccountResource/profile/$1";
 
 $route["api/cards/archive"] = "rest/CardResource/archive";
 $route["api/cards"] = "rest/CardResource";
