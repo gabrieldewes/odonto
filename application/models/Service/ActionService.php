@@ -26,7 +26,8 @@ class ActionService extends CI_Model {
       $dql = "SELECT a FROM Domain\Action a
             JOIN a.card c
             WHERE c.id = :cardId
-            AND a.id = :actionId";
+            AND a.id = :actionId
+            ORDER BY a.id DESC";
       $query = $this->em->createQuery($dql)
                         ->setParameter("cardId", $cardId)
                         ->setParameter("actionId", $actionId);
@@ -42,7 +43,8 @@ class ActionService extends CI_Model {
       $dql = "SELECT a FROM Domain\Action a
             JOIN a.card c
             WHERE a.actionType = 'ACTION_DIAGNOSTIC'
-            AND c.id = :cardId";
+            AND c.id = :cardId
+            ORDER BY a.id DESC";
       $query = $this->em->createQuery($dql)
                         ->setParameter("cardId", $cardId);
       return $query->getResult();

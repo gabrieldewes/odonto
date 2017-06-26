@@ -31,6 +31,32 @@ class AccountResource extends REST_Controller {
     $this->response($principal, REST_Controller::HTTP_OK);
   }
 
+  function profile_get($login) {
+    $userId = $this->_apiuser->user_id;
+    $this->load->model("Service/UserService");
+    $user = $this->UserService->findOneByLogin($login);
+
+    if (!$user) {
+      $this->response(
+        new Status("profile_not_found", "Profile not found with login \"{$login}\"", null), REST_Controller::HTTP_OK);
+    }
+
+    $roles = array();
+    foreach ($user->getAuthority() as $i => $authority) {
+      array_push($roles, $authority->getName());
+    }
+    $principal = new Principal();
+    $principal->setId($user->getId())
+        ->setFirstName($user->getFirstName())
+        ->setLastName($user->getLastName())
+        ->setEmail($user->getEmail())
+        ->setUsername($user->getUsername())
+        ->setAvatarUrl($user->getAvatarUrl())
+        ->setBio($user->getBio())
+        ->setRoles($roles);
+    $this->response($principal, REST_Controller::HTTP_OK);
+  }
+
   function register_post() {
     $data = $this->post();
     $this->load->model("Service/UserService");
@@ -47,9 +73,9 @@ class AccountResource extends REST_Controller {
     $password  = $data['password'];
 
     if (($user = $this->UserService->createUser($firstName, $lastName, $email, $username, $password)) !== null) {
-      //$this->load->model("Service/MailService");
-      //$this->MailService->sendActivationEmail($user);
-      $user = $this->UserService->activeRegistration($user->getActivationKey());
+      $this->load->model("Service/MailService");
+      $this->MailService->sendActivationEmail($user);
+      //$user = $this->UserService->activeRegistration($user->getActivationKey());
       $userStatus[] =
         new Status("account_info", "Account information", $user->toArray());
       $this->response(

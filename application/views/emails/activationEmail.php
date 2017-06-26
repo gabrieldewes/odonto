@@ -13,7 +13,7 @@
     </p>
     <p>
       Vimos que você criou uma nova conta em
-      <a href="<?=base_url()?>">Odonto - Consultas médicas e odontológicas</a>, certo?
+      <a href="<?=base_url()?>">Odonto</a>, certo?
     </p>
     <p>
       Estamos lhe enviando este e-mail pois foi informado no formulário de cadastro.

@@ -10,7 +10,6 @@ class ContributorController extends CI_Controller {
       redirect("/");
 
     $this->load->model("Service/CardService");
-    $this->load->model("Service/ActionService");
     $this->load->library("form_validation");
     $this->load->library("pagination");
     $this->load->helper("pagination");
@@ -54,10 +53,14 @@ class ContributorController extends CI_Controller {
     $this->form_validation->set_rules("attachments", "anexos", "callback_file_check");
     if ($this->form_validation->run()) {
       $action = $this->input->post();
-      $returnUrl = $this->input->get("returnUrl");
-      $action = $this->ActionService->createAction($action["whatafield"], "ACTION_DIAGNOSTIC", $cardId);
-      //$this->MailService->sendCreateDiagnosticEmail($action);
-      redirect($returnUrl);
+      $this->load->model("Service/ActionService");
+
+      if ( ($action = $this->ActionService->createAction($action["whatafield"], "ACTION_DIAGNOSTIC", $cardId)) != null) {
+        $this->load->model("Service/MailService");
+        $this->MailService->sendCreateDiagnosticEmail($action);
+        redirect($this->input->get("returnUrl"));
+      }
+
     }
     else
       $this->create();

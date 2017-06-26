@@ -64,10 +64,10 @@ class User extends \Domain\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Domain\\User' . "\0" . 'id', '' . "\0" . 'Domain\\User' . "\0" . 'firstName', '' . "\0" . 'Domain\\User' . "\0" . 'lastName', '' . "\0" . 'Domain\\User' . "\0" . 'username', '' . "\0" . 'Domain\\User' . "\0" . 'email', '' . "\0" . 'Domain\\User' . "\0" . 'password', '' . "\0" . 'Domain\\User' . "\0" . 'active', '' . "\0" . 'Domain\\User' . "\0" . 'activationKey', '' . "\0" . 'Domain\\User' . "\0" . 'action', '' . "\0" . 'Domain\\User' . "\0" . 'authority'];
+            return ['__isInitialized__', '' . "\0" . 'Domain\\User' . "\0" . 'id', '' . "\0" . 'Domain\\User' . "\0" . 'firstName', '' . "\0" . 'Domain\\User' . "\0" . 'lastName', '' . "\0" . 'Domain\\User' . "\0" . 'username', '' . "\0" . 'Domain\\User' . "\0" . 'email', '' . "\0" . 'Domain\\User' . "\0" . 'password', '' . "\0" . 'Domain\\User' . "\0" . 'avatarUrl', '' . "\0" . 'Domain\\User' . "\0" . 'bio', '' . "\0" . 'Domain\\User' . "\0" . 'active', '' . "\0" . 'Domain\\User' . "\0" . 'activationKey', '' . "\0" . 'Domain\\User' . "\0" . 'action', '' . "\0" . 'Domain\\User' . "\0" . 'authority'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Domain\\User' . "\0" . 'id', '' . "\0" . 'Domain\\User' . "\0" . 'firstName', '' . "\0" . 'Domain\\User' . "\0" . 'lastName', '' . "\0" . 'Domain\\User' . "\0" . 'username', '' . "\0" . 'Domain\\User' . "\0" . 'email', '' . "\0" . 'Domain\\User' . "\0" . 'password', '' . "\0" . 'Domain\\User' . "\0" . 'active', '' . "\0" . 'Domain\\User' . "\0" . 'activationKey', '' . "\0" . 'Domain\\User' . "\0" . 'action', '' . "\0" . 'Domain\\User' . "\0" . 'authority'];
+        return ['__isInitialized__', '' . "\0" . 'Domain\\User' . "\0" . 'id', '' . "\0" . 'Domain\\User' . "\0" . 'firstName', '' . "\0" . 'Domain\\User' . "\0" . 'lastName', '' . "\0" . 'Domain\\User' . "\0" . 'username', '' . "\0" . 'Domain\\User' . "\0" . 'email', '' . "\0" . 'Domain\\User' . "\0" . 'password', '' . "\0" . 'Domain\\User' . "\0" . 'avatarUrl', '' . "\0" . 'Domain\\User' . "\0" . 'bio', '' . "\0" . 'Domain\\User' . "\0" . 'active', '' . "\0" . 'Domain\\User' . "\0" . 'activationKey', '' . "\0" . 'Domain\\User' . "\0" . 'action', '' . "\0" . 'Domain\\User' . "\0" . 'authority'];
     }
 
     /**
@@ -307,6 +307,50 @@ class User extends \Domain\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPassword', []);
 
         return parent::getPassword();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAvatarUrl($avatarUrl)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAvatarUrl', [$avatarUrl]);
+
+        return parent::setAvatarUrl($avatarUrl);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAvatarUrl()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAvatarUrl', []);
+
+        return parent::getAvatarUrl();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setBio($bio)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setBio', [$bio]);
+
+        return parent::setBio($bio);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getBio()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getBio', []);
+
+        return parent::getBio();
     }
 
     /**

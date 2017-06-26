@@ -11,11 +11,16 @@ class ActionResource extends REST_Controller {
 
   function index_get($cardId) {
     $userId = $this->_apiuser->user_id;
+    $limit = 5;
+    $page = $this->input->get("page");
+    $offset = $page == 0 ? $page : ($page-1) * $limit;
     $dql = "SELECT a FROM Domain\Action a JOIN a.card c JOIN c.user u WHERE c.id = :cardId AND u.id = :userId ORDER BY a.id DESC";
     $query = $this->doctrine->em
             ->createQuery($dql)
             ->setParameter("cardId", $cardId)
-            ->setParameter("userId", $userId);
+            ->setParameter("userId", $userId)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit);
     $this->response($query->getArrayResult(), REST_Controller::HTTP_OK);
   }
 
@@ -42,7 +47,7 @@ class ActionResource extends REST_Controller {
       $this->response(
         new Status("action_not_found", "Action not found with id {$actionId} for card with id {$cardId}", null),
         REST_Controller::HTTP_OK);
-    }    
+    }
   }
 
   function attachments_get($actionId) {

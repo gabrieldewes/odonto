@@ -96,7 +96,7 @@ class CardResource extends REST_Controller {
     $card = $this->CardService->findById($cardId);
     if (!$card)
       $this->response(
-        new Status("card_not_found", "Card not found with id {$cardId}.", null), 400);
+        new Status("card_not_found", "Card not found with id \"{$cardId}\"", null), REST_Controller::HTTP_OK);
 
     $this->response($card->toArray(), REST_Controller::HTTP_OK);
   }

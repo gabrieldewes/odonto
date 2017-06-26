@@ -13,7 +13,7 @@
     </p>
     <p>
       Um novo diagnóstico foi emitido para sua consulta em
-      <a href="<?=base_url()?>">Odonto - Consultas médicas e odontológicas</a>.
+      <a href="<?=base_url()?>">Odonto</a>.
     </p>
     <p>
       Consulta #<?=$cardId?><br>

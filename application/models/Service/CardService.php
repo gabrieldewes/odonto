@@ -31,7 +31,8 @@ class CardService extends CI_Model {
               JOIN a.user u
               WHERE c.deleted = 0
               AND u.id = :userId
-              AND a.actionType = 'ACTION_DIAGNOSTIC' ";
+              AND a.actionType = 'ACTION_DIAGNOSTIC'
+              ORDER BY c.id DESC";
     $query = $this->em->createQuery($dql)
                        ->setParameter("userId", $currUserId)
                        ->setFirstResult($offset)
@@ -48,7 +49,8 @@ class CardService extends CI_Model {
               WHERE c.deleted = 0
               AND a.id IS NULL
               OR (a.id IS NOT NULL AND u.id != :userId)
-              AND u.id = :userId";
+              AND u.id = :userId
+              ORDER BY c.id DESC";
     $query = $this->em->createQuery($dql)
                        ->setParameter("userId", $currUserId)
                        ->setFirstResult($offset)
