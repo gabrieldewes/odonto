@@ -24,7 +24,7 @@ $(function() {
 
   $btn.on("click", function() {
     $btn.attr("disabled", true).addClass("disabled")
-        .text("procurando servidor mais próximo...");
+        .text("aguarde...");
     $form.submit();
   });
 });

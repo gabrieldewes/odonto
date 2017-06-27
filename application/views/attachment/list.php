@@ -12,8 +12,8 @@
       <?php if (!$attachment->getIsImage()): ?>
         <div class="d-inline-block card">
           <div class="card-block">
-            <h4 title="<?=$attachment->getOriginalName()?>" class="card-title">Anexo #<?=$attachment->getId()?></h4>
-            <p class="card-text"><?=$attachment->getAlt()?></p>
+            <h4 class="card-title">Anexo #<?=$attachment->getId()?></h4>
+            <p class="card-text overflow" title="<?=$attachment->getOriginalName()?>"><?=$attachment->getOriginalName()?></p>
 
             <a href="<?=base_url() ."attachments/{$attachment->getId()}"?>" class="card-link">View</a>
             <a href="<?=base_url() ."attachments/{$attachment->getId()}/download"?>" target="_blank" class="card-link">Download</a>

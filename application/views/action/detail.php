@@ -36,8 +36,9 @@
         </h3>
 
         <p class="text-center">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in.
+          <?=$user->getBio()?>
         </p>
+
       </div>
     </aside>
   </div>

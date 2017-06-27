@@ -11,9 +11,9 @@
         <div class="card-block">
         --><figure class="d-inline-block --card --card-block" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
             <a href="<?=$attach->getUrl()?>" itemprop="contentUrl" data-size="<?="{$attach->getImageWidth()}x{$attach->getImageHeight()}"?>">
-              <img src="<?=$attach->getThumbUrl()?>" itemprop="thumbnail" alt="<?=$attach->getAlt()?>" />
+              <img src="<?=$attach->getThumbUrl()?>" title="<?=$attach->getOriginalName()?>" itemprop="thumbnail" alt="<?=$attach->getAlt()?>" />
             </a>
-            <figcaption itemprop="caption description"><?=$attach->getAlt()?></figcaption>
+            <figcaption itemprop="caption description" class="overflow"><?=$attach->getOriginalName()?></figcaption>
           </figure>
         <!--</div>
       </div>-->

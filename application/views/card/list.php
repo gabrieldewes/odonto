@@ -7,7 +7,13 @@
         <div class="card">
           <div class="card-block">
             <h3 class="card-title">#<?=$card->getId()?></h3>
-            <p class="card-text"><?=$card->getWhatafield()?></p>
+            <p class="card-text overflow"><?=$card->getWhatafield()?></p>
+
+            <p class="card-text">
+              <small class="text-muted">
+                <?=time_ago(strtotime($card->getCreatedAt()->format('Y-m-d H:i:s')))?>
+              </small>
+            </p>
 
             <?php if ($card->getDeleted()): ?>
               <a href="<?=base_url(). "cards/{$card->getId()}/recover"?>" class="card-link">

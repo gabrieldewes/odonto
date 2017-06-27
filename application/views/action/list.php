@@ -7,20 +7,11 @@
         <div class="card">
           <div class="card-block">
             <h3 class="card-title">#<?=$action->getId()?></h3>
-            <p class="card-text"><?=$action->getWhatafield()?></p>
+            <p class="card-text overflow"><?=$action->getWhatafield()?></p>
 
-            <p>
-              <small style="color:gray">
-                <?php $a = "Criado por <strong>"
-                  . $action->getCreatedBy()
-                  ."</strong> em "
-                  . $action->getCreatedAt()->format('\<\s\t\r\o\n\g\>d/m/Y\<\/\s\t\r\o\n\g\> á\s\ \<\s\t\r\o\n\g\>H:i:s\<\/\s\t\r\o\n\g\>')
-                  ."<br>Última modificação por <strong>"
-                  . $action->getLastModifiedBy()
-                  ."</strong> em "
-                  . $action->getLastModifiedAt()->format('\<\s\t\r\o\n\g\>d/m/Y\<\/\s\t\r\o\n\g\> á\s\ \<\s\t\r\o\n\g\>H:i:s\<\/\s\t\r\o\n\g\>');
-                    echo $a;
-                ?>
+            <p class="card-text">
+              <small class="text-muted">
+                <?=time_ago(strtotime($action->getCreatedAt()->format('Y-m-d H:i:s')))?>
               </small>
             </p>
 
