@@ -20,7 +20,8 @@ class CardResource extends REST_Controller {
                        ->setParameter("userId", $userId)
                        ->setFirstResult($offset)
                        ->setMaxResults($limit);
-    $this->response($query->getArrayResult(), REST_Controller::HTTP_OK);
+    $cards = $this->_toArray($query->getResult());
+    $this->response($cards, REST_Controller::HTTP_OK);
   }
 
   function index_post() {
@@ -56,14 +57,15 @@ class CardResource extends REST_Controller {
                        ->setParameter("userId", $userId)
                        ->setFirstResult($offset)
                        ->setMaxResults($limit);
-    $this->response($query->getArrayResult(), REST_Controller::HTTP_OK);
+    $cards = $this->_toArray($query->getResult());
+    $this->response($cards, REST_Controller::HTTP_OK);
   }
 
   function archive_put($cardId) {
     $card = $this->CardService->findById($cardId);
     if (!$card)
       $this->response(
-          new Status("card_not_found", "Card not found with id \"{$cardId}\""),
+          new Status("card_not_found", "Card not found with id {$cardId}"),
           REST_Controller::HTTP_OK);
 
     $archive = $this->put()[0];
@@ -101,7 +103,7 @@ class CardResource extends REST_Controller {
     $card = $this->CardService->findById($cardId);
     if (!$card)
       $this->response(
-        new Status("card_not_found", "Card not found with id \"{$cardId}\"", null), REST_Controller::HTTP_OK);
+        new Status("card_not_found", "Card not found with id {$cardId}", null), REST_Controller::HTTP_OK);
 
     $this->response($card->toArray(), REST_Controller::HTTP_OK);
   }
@@ -114,6 +116,14 @@ class CardResource extends REST_Controller {
             ->setParameter("cardId", $cardId)
             /*->setParameter("userId", $this->userId)*/;
     $this->response($query->getArrayResult(), REST_Controller::HTTP_OK);
+  }
+
+  private function _toArray($result) {
+    $array=[];
+    foreach ($result as $key => $domain) {
+      $array[] = $domain->toArray();
+    }
+    return $array;
   }
 
 }

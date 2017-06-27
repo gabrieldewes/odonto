@@ -13,7 +13,7 @@ class DefaultResource extends REST_Controller {
     $proxy = $_SERVER["REMOTE_ADDR"];
     $host = gethostbyaddr($proxy);
     $this->response(
-      new Status("greetings", "Hello {$host}"), REST_Controller::HTTP_OK);
+      new Status("greetings", "Hello {$host}", $this->_args), REST_Controller::HTTP_OK);
   }
 
 }

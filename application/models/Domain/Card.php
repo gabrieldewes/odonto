@@ -252,6 +252,7 @@ class Card extends AbstractEntity
         'id' => $this->id,
         'whatafield' => $this->whatafield,
         'thumbUrl' => $this->thumbUrl,
+        'timeAgo' => time_ago(strtotime($this->getCreatedAt()->format('Y-m-d H:i:s'))),
         'deleted' => $this->getDeleted(),
         'createdBy' => $this->getCreatedBy(),
         'createdAt' => $this->getCreatedAt(),

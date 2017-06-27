@@ -42,7 +42,7 @@ class AttachmentService extends CI_Model {
     $files = $this->multiple_upload("attachments", $path, $config=array(), $resize_configs=null);
     $attachs = [];
     $batchSize = 20;
-    var_dump($files);
+    //var_dump($files);
     foreach ($files as $i => $file) {
       $attachment = new Attachment();
       $attachment->setUrl(base_url() ."{$path}/{$file["file_name"]}")

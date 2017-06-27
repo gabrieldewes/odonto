@@ -21,7 +21,8 @@ class ActionResource extends REST_Controller {
             ->setParameter("userId", $userId)
             ->setFirstResult($offset)
             ->setMaxResults($limit);
-    $this->response($query->getArrayResult(), REST_Controller::HTTP_OK);
+    $actions = $this->_toArray($query->getResult());
+    $this->response($actions, REST_Controller::HTTP_OK);
   }
 
   function actions_get($cardId, $actionId) {
@@ -56,6 +57,14 @@ class ActionResource extends REST_Controller {
             ->createQuery($dql)
             ->setParameter("id", $actionId);
     $this->response($query->getArrayResult(), REST_Controller::HTTP_OK);
+  }
+
+  private function _toArray($result) {
+    $array=[];
+    foreach ($result as $key => $domain) {
+      $array[] = $domain->toArray();
+    }
+    return $array;
   }
 
 }

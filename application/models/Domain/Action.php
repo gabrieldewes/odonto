@@ -255,7 +255,7 @@ class Action extends AbstractEntity
         'id' => $this->id,
         'actionType' => $this->actionType,
         'whatafield' => $this->whatafield,
-        'user' => $this->user[0]->toArray(),
+        'timeAgo' => time_ago(strtotime($this->getCreatedAt()->format('Y-m-d H:i:s'))),
         'deleted' => $this->getDeleted(),
         'createdBy' => $this->getCreatedBy(),
         'createdAt' => $this->getCreatedAt(),
