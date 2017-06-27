@@ -458,9 +458,9 @@ class User extends AbstractEntity
         'bio' => $this->bio,
         'deleted' => $this->getDeleted(),
         'createdBy' => $this->getCreatedBy(),
-        'createdAt' => $this->getCreatedAt(),
+        'createdAt' => $this->getCreatedAt()->format('c'),
         'lastModifiedBy' => $this->getLastModifiedBy(),
-        'lastModifiedAt' => $this->getLastModifiedAt()
+        'lastModifiedAt' => $this->getLastModifiedAt()->format('c')
       ];
     }
 

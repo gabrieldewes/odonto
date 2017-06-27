@@ -57,7 +57,7 @@ class ContributorController extends CI_Controller {
 
       if ( ($action = $this->ActionService->createAction($action["whatafield"], "ACTION_DIAGNOSTIC", $cardId)) != null) {
         $this->load->model("Service/MailService");
-        $this->MailService->sendCreateDiagnosticEmail($action);
+        //$this->MailService->sendCreateDiagnosticEmail($action);
         redirect($this->input->get("returnUrl"));
       }
 

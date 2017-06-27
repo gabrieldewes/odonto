@@ -7,7 +7,13 @@
         <div class="card">
           <div class="card-block">
             <h3 class="card-title">#<?=$card->getId()?></h3>
-            <p class="card-text"><?=$card->getWhatafield()?></p>
+            <p class="card-text overflow"><?=$card->getWhatafield()?></p>
+
+            <p class="card-text">
+              <small class="text-muted">
+                <?=time_ago($card->getCreatedAt()->format('U'))?>
+              </small>
+            </p>
 
             <a href="<?= base_url(). "{$this->uri->uri_string}/{$card->getId()}"?>" class="card-link">
               View

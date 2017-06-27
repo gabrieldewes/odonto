@@ -56,7 +56,8 @@ class ActionResource extends REST_Controller {
     $query = $this->doctrine->em
             ->createQuery($dql)
             ->setParameter("id", $actionId);
-    $this->response($query->getArrayResult(), REST_Controller::HTTP_OK);
+    $attachments = $this->_toArray($query->getResult());
+    $this->response($attachments, REST_Controller::HTTP_OK);
   }
 
   private function _toArray($result) {

@@ -255,12 +255,12 @@ class Action extends AbstractEntity
         'id' => $this->id,
         'actionType' => $this->actionType,
         'whatafield' => $this->whatafield,
-        'timeAgo' => time_ago(strtotime($this->getCreatedAt()->format('Y-m-d H:i:s'))),
+        'timeAgo' => time_ago($this->getCreatedAt()->getTimestamp()),
         'deleted' => $this->getDeleted(),
         'createdBy' => $this->getCreatedBy(),
-        'createdAt' => $this->getCreatedAt(),
+        'createdAt' => $this->getCreatedAt()->format('c'),
         'lastModifiedBy' => $this->getLastModifiedBy(),
-        'lastModifiedAt' => $this->getLastModifiedAt()
+        'lastModifiedAt' => $this->getLastModifiedAt()->format('c')
       ];
     }
 }

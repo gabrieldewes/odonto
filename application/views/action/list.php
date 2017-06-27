@@ -11,7 +11,7 @@
 
             <p class="card-text">
               <small class="text-muted">
-                <?=time_ago(strtotime($action->getCreatedAt()->format('Y-m-d H:i:s')))?>
+                <?=time_ago($action->getCreatedAt()->format('U'))?>
               </small>
             </p>
 

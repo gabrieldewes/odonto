@@ -492,4 +492,26 @@ class Attachment extends AbstractEntity
         return $this->card;
     }
 
+    public function toArray() {
+      return [
+        'id' => $this->id,
+        'url' => $this->url,
+        'thumbUrl' => $this->thumbUrl,
+        'alt' => $this->alt,
+        'fileName' => $this->fileName,
+        'mimeType' => $this->mimeType,
+        'originalName' => $this->originalName,
+        'fileExt' => $this->fileExt,
+        'fileSize' => $this->fileSize,
+        'isImage' => $this->isImage,
+        'imageWidth' => $this->imageWidth,
+        'imageHeight' => $this->imageHeight,
+        'deleted' => $this->getDeleted(),
+        'createdBy' => $this->getCreatedBy(),
+        'createdAt' => $this->getCreatedAt()->format('c'),
+        'lastModifiedBy' => $this->getLastModifiedBy(),
+        'lastModifiedAt' => $this->getLastModifiedAt()->format('c')
+      ];
+    }
+
 }

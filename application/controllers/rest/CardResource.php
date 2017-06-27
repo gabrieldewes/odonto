@@ -115,7 +115,8 @@ class CardResource extends REST_Controller {
             ->createQuery($dql)
             ->setParameter("cardId", $cardId)
             /*->setParameter("userId", $this->userId)*/;
-    $this->response($query->getArrayResult(), REST_Controller::HTTP_OK);
+    $attachments = $this->_toArray($query->getResult());
+    $this->response($attachments, REST_Controller::HTTP_OK);
   }
 
   private function _toArray($result) {
