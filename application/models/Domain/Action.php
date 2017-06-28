@@ -256,6 +256,7 @@ class Action extends AbstractEntity
         'actionType' => $this->actionType,
         'whatafield' => $this->whatafield,
         'timeAgo' => time_ago($this->getCreatedAt()->getTimestamp()),
+        'thumbUrl' => $this->user[0]->getAvatarUrl(),
         'deleted' => $this->getDeleted(),
         'createdBy' => $this->getCreatedBy(),
         'createdAt' => $this->getCreatedAt()->format('c'),
