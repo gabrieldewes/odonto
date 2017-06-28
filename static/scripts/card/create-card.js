@@ -34,6 +34,11 @@ $(function() {
       empty = true;
     }
 
+    if ($text.val() !== "" && $files.val() === "") {
+      $btn.text("selecione ao menos um anexo");
+      empty = true;
+    }
+
     if (empty) {
       $btn.attr("disabled", true)
           .addClass("disabled");
